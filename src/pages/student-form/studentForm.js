@@ -5,25 +5,26 @@ import { setStudentData, updataStudentValue } from "../../redux/studentsSlice"
 import { v4 as uuidv4 } from 'uuid';
 
 function StudentForm() {
-    const Input = ({placeholder,name,value,htmlFor,label}) => (
 
-        <div className="entry_data">
-         <label htmlFor={htmlFor}> {label} </label>
-            <input
-                type="text"
-                placeholder={placeholder}
-                name={name}
-                onChange={handleChange}
-                value={value}
-            />
-        </div>
-    )
+    // const Input = ({placeholder,name,value,htmlFor,label}) => (
+
+    //     <div className="entry_data">
+    //      <label htmlFor={htmlFor}> {label} </label>
+    //         <input
+    //             type="text"
+    //             placeholder={placeholder}
+    //             name={name}
+    //             onChange={handleChange}
+    //             value={value}
+    //         />
+    //     </div>
+    // )
 
     const dispatch = useDispatch()
-    const { students } = useSelector(state => state.students);
+    const { students  } = useSelector(state => state.students);
 
     const [update, setUpdate] = useState(false);
-
+    const [disableButton,setDisableButton] = useState(false);
     const initialItem = { name_ar: '', name_en: '', stage: '', section: '', email: '', notes: '' };
     const [data, setData] = useState(initialItem);
 
@@ -58,6 +59,7 @@ function StudentForm() {
             });
         }
         setUpdate(true)
+        setDisableButton(true);
     }
 
 // ====== upData function  =======
@@ -151,19 +153,16 @@ function StudentForm() {
                         value={data.notes}
                         rows="4" 
                         cols="50" 
-                        maxlength="200"
+                        maxLength="200"
                          
                     />
                 </div>
                 <div className="form_button_submit">
-
-                    { update?(<button disabled type='submit'> ادخل البيانات</button>): (<button type='submit'> ادخل البيانات</button>)
-                    }
-
+                     <button disabled={update? "disabled":null} type='submit'> ادخل البيانات</button>
                 </div>
             </form>
 
-            <SetStudents editStudent={editStudent} updataValues={updataValues} />
+            <SetStudents editStudent={editStudent} updataValues={updataValues} disableButton={disableButton} />
         </div>
     )
 }

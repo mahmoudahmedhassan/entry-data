@@ -3,8 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const StudentsSlice = createSlice({
     name: 'Student',
     initialState: {
-        students:[],
+        students: [],
         loading: true,
+        disableButton: false
     },
 
     reducers: {
@@ -12,11 +13,13 @@ const StudentsSlice = createSlice({
         setStudentData: (state, action) => {
             state.loading = false
          state.students.push(action.payload)
+ 
          },
 
         //  delete students 
          deleteStudent: (state, action) => {
             state.students= state.students.filter(student => student.id !== action.payload)
+ 
          },
 
        //   update student data
@@ -33,14 +36,18 @@ const StudentsSlice = createSlice({
                     student.data.email   = email
                 }
             } );
-         }
+ 
+         },
+      
+         
     }
 });
 export const {
     
     setStudentData,
     deleteStudent,
-    updataStudentValue
+    updataStudentValue,
+     
     
 } = StudentsSlice.actions;
 export default StudentsSlice.reducer;

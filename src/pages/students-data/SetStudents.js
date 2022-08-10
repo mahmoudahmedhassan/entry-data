@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { deleteStudent } from '../../redux/studentsSlice'
 
-export default function SetStudents({ editStudent, updataValues }) {
+export default function SetStudents({ editStudent, updataValues,disableButton }) {
   const dispatch = useDispatch();
   const { students } = useSelector(state => state.students);
   const { loading } = useSelector(state => state.students);
@@ -31,7 +31,8 @@ export default function SetStudents({ editStudent, updataValues }) {
 
                   <div className='buttons_modfiy'>
                   <button onClick={() => editStudent(student.id)}>تعديل</button>
-                  <button onClick={() => updataValues(student.id)}>تحديث</button>
+
+                  <button disabled={disableButton?null:"disabled"} onClick={() => updataValues(student.id)}>تحديث</button>
                   <button onClick={() => delete (dispatch(deleteStudent(student.id)))}>حذف</button>
                   </div>
                 
